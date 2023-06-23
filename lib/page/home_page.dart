@@ -70,15 +70,22 @@ class HomePage extends ConsumerWidget {
               ),
 
               // Switcher
-              RotatedBox(
-                quarterTurns: provider.isLeft ? 12 : 6,
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    ref.read(homeProvider.notifier).switchConvertingDirection();
-                    FocusScope.of(context).unfocus();
-                  },
-                  child: const Icon(Icons.double_arrow_rounded, size: 32.0),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.grey),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                child: RotatedBox(
+                  quarterTurns: provider.isLeft ? 12 : 6,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      ref.read(homeProvider.notifier).switchConvertingDirection();
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: const Icon(Icons.double_arrow_rounded, size: 32.0),
+                  ),
                 ),
               ),
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1071416051233",
+    "project_id": "mamago-bf7f1",
+    "storage_bucket": "mamago-bf7f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071416051233:android:4d5a27cc4600f4b3120560",
+        "android_client_info": {
+          "package_name": "com.example.mamago"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071416051233-heugktjek4ld5832nclafqhhb7btrf9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwNVPWo24D5Yt0fdbm1cSfEnCKaUPWdKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071416051233-heugktjek4ld5832nclafqhhb7btrf9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
