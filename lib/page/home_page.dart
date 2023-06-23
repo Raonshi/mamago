@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mamago/provider/home/home_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key, required this.state});
 
   final GoRouterState state;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(homeProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text("MaMaGO"),
@@ -29,18 +32,25 @@ class HomePage extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: DropdownButton<int>(
-                              value: 0,
-                              isExpanded: true,
-                              underline: const Offstage(),
-                              items: List.generate(
-                                10,
-                                (index) => DropdownMenuItem(
-                                  value: index,
-                                  child: const Text("Korean"),
+                            child: Visibility(
+                              maintainInteractivity: false,
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: !provider.isLeft,
+                              child: DropdownButton<int>(
+                                value: 0,
+                                isExpanded: true,
+                                underline: const Offstage(),
+                                items: List.generate(
+                                  10,
+                                  (index) => DropdownMenuItem(
+                                    value: index,
+                                    child: const Text("Korean"),
+                                  ),
                                 ),
+                                onChanged: (value) {},
                               ),
-                              onChanged: (value) {},
                             ),
                           ),
                         ],
@@ -49,12 +59,22 @@ class HomePage extends StatelessWidget {
                         maxLines: null,
                         minLines: 15,
                         decoration: const InputDecoration(border: InputBorder.none),
+                        readOnly: !provider.isLeft,
                       ),
                     ],
                   ),
                 ),
               ),
-              const Icon(Icons.double_arrow_rounded, size: 32.0),
+              RotatedBox(
+                quarterTurns: provider.isLeft ? 12 : 6,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    ref.read(homeProvider.notifier).switchConvertingDirection();
+                  },
+                  child: const Icon(Icons.double_arrow_rounded, size: 32.0),
+                ),
+              ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.all(16.0),
@@ -68,18 +88,25 @@ class HomePage extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: DropdownButton<int>(
-                              value: 0,
-                              isExpanded: true,
-                              underline: const Offstage(),
-                              items: List.generate(
-                                10,
-                                (index) => DropdownMenuItem(
-                                  value: index,
-                                  child: const Text("Korean"),
+                            child: Visibility(
+                              maintainInteractivity: false,
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: provider.isLeft,
+                              child: DropdownButton<int>(
+                                value: 0,
+                                isExpanded: true,
+                                underline: const Offstage(),
+                                items: List.generate(
+                                  10,
+                                  (index) => DropdownMenuItem(
+                                    value: index,
+                                    child: const Text("Korean"),
+                                  ),
                                 ),
+                                onChanged: (value) {},
                               ),
-                              onChanged: (value) {},
                             ),
                           ),
                         ],
@@ -88,6 +115,7 @@ class HomePage extends StatelessWidget {
                         maxLines: null,
                         minLines: 15,
                         decoration: const InputDecoration(border: InputBorder.none),
+                        readOnly: provider.isLeft,
                       ),
                     ],
                   ),
