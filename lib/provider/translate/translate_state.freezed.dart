@@ -17,8 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TranslateState {
   ConvertingLanguage get language => throw _privateConstructorUsedError;
+  ToneAndManner get toneAndManner => throw _privateConstructorUsedError;
   String? get nativeText => throw _privateConstructorUsedError;
-  String? get convertedText => throw _privateConstructorUsedError;
+  List<TranslateItem> get convertedText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TranslateStateCopyWith<TranslateState> get copyWith =>
@@ -32,7 +33,10 @@ abstract class $TranslateStateCopyWith<$Res> {
       _$TranslateStateCopyWithImpl<$Res, TranslateState>;
   @useResult
   $Res call(
-      {ConvertingLanguage language, String? nativeText, String? convertedText});
+      {ConvertingLanguage language,
+      ToneAndManner toneAndManner,
+      String? nativeText,
+      List<TranslateItem> convertedText});
 }
 
 /// @nodoc
@@ -49,22 +53,27 @@ class _$TranslateStateCopyWithImpl<$Res, $Val extends TranslateState>
   @override
   $Res call({
     Object? language = null,
+    Object? toneAndManner = null,
     Object? nativeText = freezed,
-    Object? convertedText = freezed,
+    Object? convertedText = null,
   }) {
     return _then(_value.copyWith(
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as ConvertingLanguage,
+      toneAndManner: null == toneAndManner
+          ? _value.toneAndManner
+          : toneAndManner // ignore: cast_nullable_to_non_nullable
+              as ToneAndManner,
       nativeText: freezed == nativeText
           ? _value.nativeText
           : nativeText // ignore: cast_nullable_to_non_nullable
               as String?,
-      convertedText: freezed == convertedText
+      convertedText: null == convertedText
           ? _value.convertedText
           : convertedText // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<TranslateItem>,
     ) as $Val);
   }
 }
@@ -78,7 +87,10 @@ abstract class _$$_TranslateStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ConvertingLanguage language, String? nativeText, String? convertedText});
+      {ConvertingLanguage language,
+      ToneAndManner toneAndManner,
+      String? nativeText,
+      List<TranslateItem> convertedText});
 }
 
 /// @nodoc
@@ -93,22 +105,27 @@ class __$$_TranslateStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? language = null,
+    Object? toneAndManner = null,
     Object? nativeText = freezed,
-    Object? convertedText = freezed,
+    Object? convertedText = null,
   }) {
     return _then(_$_TranslateState(
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
               as ConvertingLanguage,
+      toneAndManner: null == toneAndManner
+          ? _value.toneAndManner
+          : toneAndManner // ignore: cast_nullable_to_non_nullable
+              as ToneAndManner,
       nativeText: freezed == nativeText
           ? _value.nativeText
           : nativeText // ignore: cast_nullable_to_non_nullable
               as String?,
-      convertedText: freezed == convertedText
-          ? _value.convertedText
+      convertedText: null == convertedText
+          ? _value._convertedText
           : convertedText // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<TranslateItem>,
     ));
   }
 }
@@ -120,20 +137,31 @@ class _$_TranslateState
     implements _TranslateState {
   const _$_TranslateState(
       {this.language = ConvertingLanguage.korean,
+      this.toneAndManner = ToneAndManner.business,
       this.nativeText,
-      this.convertedText});
+      final List<TranslateItem> convertedText = const []})
+      : _convertedText = convertedText;
 
   @override
   @JsonKey()
   final ConvertingLanguage language;
   @override
-  final String? nativeText;
+  @JsonKey()
+  final ToneAndManner toneAndManner;
   @override
-  final String? convertedText;
+  final String? nativeText;
+  final List<TranslateItem> _convertedText;
+  @override
+  @JsonKey()
+  List<TranslateItem> get convertedText {
+    if (_convertedText is EqualUnmodifiableListView) return _convertedText;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_convertedText);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TranslateState(language: $language, nativeText: $nativeText, convertedText: $convertedText)';
+    return 'TranslateState(language: $language, toneAndManner: $toneAndManner, nativeText: $nativeText, convertedText: $convertedText)';
   }
 
   @override
@@ -142,6 +170,7 @@ class _$_TranslateState
     properties
       ..add(DiagnosticsProperty('type', 'TranslateState'))
       ..add(DiagnosticsProperty('language', language))
+      ..add(DiagnosticsProperty('toneAndManner', toneAndManner))
       ..add(DiagnosticsProperty('nativeText', nativeText))
       ..add(DiagnosticsProperty('convertedText', convertedText));
   }
@@ -153,15 +182,17 @@ class _$_TranslateState
             other is _$_TranslateState &&
             (identical(other.language, language) ||
                 other.language == language) &&
+            (identical(other.toneAndManner, toneAndManner) ||
+                other.toneAndManner == toneAndManner) &&
             (identical(other.nativeText, nativeText) ||
                 other.nativeText == nativeText) &&
-            (identical(other.convertedText, convertedText) ||
-                other.convertedText == convertedText));
+            const DeepCollectionEquality()
+                .equals(other._convertedText, _convertedText));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, language, nativeText, convertedText);
+  int get hashCode => Object.hash(runtimeType, language, toneAndManner,
+      nativeText, const DeepCollectionEquality().hash(_convertedText));
 
   @JsonKey(ignore: true)
   @override
@@ -173,15 +204,18 @@ class _$_TranslateState
 abstract class _TranslateState implements TranslateState {
   const factory _TranslateState(
       {final ConvertingLanguage language,
+      final ToneAndManner toneAndManner,
       final String? nativeText,
-      final String? convertedText}) = _$_TranslateState;
+      final List<TranslateItem> convertedText}) = _$_TranslateState;
 
   @override
   ConvertingLanguage get language;
   @override
+  ToneAndManner get toneAndManner;
+  @override
   String? get nativeText;
   @override
-  String? get convertedText;
+  List<TranslateItem> get convertedText;
   @override
   @JsonKey(ignore: true)
   _$$_TranslateStateCopyWith<_$_TranslateState> get copyWith =>

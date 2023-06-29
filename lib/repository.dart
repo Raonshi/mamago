@@ -1,26 +1,35 @@
 import 'package:dart_openai/openai.dart';
 import 'package:mamago/common/tools.dart';
+import 'package:mamago/data/translated_item_model.dart';
+import 'package:mamago/provider/translate/translate_state.dart';
 
-class Repository {
-  final String key = "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";
+class GptRepository {
+  final String key = "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";
   OpenAIModelModel? model;
 
-  Repository() {
+  GptRepository() {
+    lgr.d("GptManager has created");
     OpenAI.apiKey = key;
-    init();
   }
 
-  void init() async {
-    model = await OpenAI.instance.model.list().then((value) => value.first);
-  }
-
-  Future<void> requestTranslate(String text) async {
+  Future<List<TranslateItem>> requestTranslate(TranslateState state) async {
     OpenAICompletionModel completion = await OpenAI.instance.completion.create(
-      model: model!.id,
-      prompt: "Translate below text to English.\n$text",
+      model: "text-davinci-003",
+      suffix: "",
+      prompt: "Just translate below text to ${state.language.text}.\n${state.nativeText}",
       topP: 0.2,
+      n: 5,
+      user: "business man",
     );
 
-    lgr.d(completion.choices.first.text);
+    return completion.choices.map((e) {
+      final Map<String, dynamic> json = {
+        "index": e.index,
+        "text": e.text,
+        "logProbs": e.logprobs,
+        "finishReason": e.finishReason,
+      };
+      return TranslateItem.fromJson(json);
+    }).toList();
   }
 }
