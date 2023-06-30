@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'package:mamago/common/enums.dart';
 import 'package:mamago/common/tools.dart';
 import 'package:mamago/data/translated_item_model.dart';
 import 'package:mamago/provider/translate/translate_state.dart';
 import 'package:http/http.dart';
 
 class GptRepository {
-  final String key = "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";
+  final String key = "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";
 
   GptRepository() {
     lgr.d("GptManager has created");

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mamago/common/enums.dart';
 import 'package:mamago/provider/translate/translate_provider.dart';
 import 'package:mamago/provider/translate/translate_state.dart';
@@ -19,7 +20,17 @@ class HomePage extends ConsumerWidget {
     final TranslateState translateState = ref.watch(translateProvider);
 
     return LoaderOverlay(
-      // overlayWidget: Lotties,
+      overlayWidget: Center(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Lottie.asset('asset/lotties/converting.json'),
+        ),
+      ),
+      useDefaultLoading: false,
       child: Scaffold(
         appBar: AppBar(
           title: const Text("MaMaGO"),
