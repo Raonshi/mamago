@@ -28,11 +28,6 @@ class TranslateItemWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         children: [
-          // Row(
-          //   children: [
-          //     Expanded(child: Text(item.text ?? "", maxLines: null, overflow: TextOverflow.ellipsis)),
-          //   ],
-          // ),
           Text(item.text ?? "", maxLines: null),
           const Divider(),
           Row(
