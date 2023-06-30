@@ -20,6 +20,9 @@ mixin _$TranslateState {
   ToneAndManner get toneAndManner => throw _privateConstructorUsedError;
   String? get nativeText => throw _privateConstructorUsedError;
   List<TranslateItem> get convertedText => throw _privateConstructorUsedError;
+  String get detectedLanguage => throw _privateConstructorUsedError;
+  bool get detecting => throw _privateConstructorUsedError;
+  bool get converting => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TranslateStateCopyWith<TranslateState> get copyWith =>
@@ -36,7 +39,10 @@ abstract class $TranslateStateCopyWith<$Res> {
       {ConvertingLanguage language,
       ToneAndManner toneAndManner,
       String? nativeText,
-      List<TranslateItem> convertedText});
+      List<TranslateItem> convertedText,
+      String detectedLanguage,
+      bool detecting,
+      bool converting});
 }
 
 /// @nodoc
@@ -56,6 +62,9 @@ class _$TranslateStateCopyWithImpl<$Res, $Val extends TranslateState>
     Object? toneAndManner = null,
     Object? nativeText = freezed,
     Object? convertedText = null,
+    Object? detectedLanguage = null,
+    Object? detecting = null,
+    Object? converting = null,
   }) {
     return _then(_value.copyWith(
       language: null == language
@@ -74,6 +83,18 @@ class _$TranslateStateCopyWithImpl<$Res, $Val extends TranslateState>
           ? _value.convertedText
           : convertedText // ignore: cast_nullable_to_non_nullable
               as List<TranslateItem>,
+      detectedLanguage: null == detectedLanguage
+          ? _value.detectedLanguage
+          : detectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String,
+      detecting: null == detecting
+          ? _value.detecting
+          : detecting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      converting: null == converting
+          ? _value.converting
+          : converting // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -90,7 +111,10 @@ abstract class _$$_TranslateStateCopyWith<$Res>
       {ConvertingLanguage language,
       ToneAndManner toneAndManner,
       String? nativeText,
-      List<TranslateItem> convertedText});
+      List<TranslateItem> convertedText,
+      String detectedLanguage,
+      bool detecting,
+      bool converting});
 }
 
 /// @nodoc
@@ -108,6 +132,9 @@ class __$$_TranslateStateCopyWithImpl<$Res>
     Object? toneAndManner = null,
     Object? nativeText = freezed,
     Object? convertedText = null,
+    Object? detectedLanguage = null,
+    Object? detecting = null,
+    Object? converting = null,
   }) {
     return _then(_$_TranslateState(
       language: null == language
@@ -126,6 +153,18 @@ class __$$_TranslateStateCopyWithImpl<$Res>
           ? _value._convertedText
           : convertedText // ignore: cast_nullable_to_non_nullable
               as List<TranslateItem>,
+      detectedLanguage: null == detectedLanguage
+          ? _value.detectedLanguage
+          : detectedLanguage // ignore: cast_nullable_to_non_nullable
+              as String,
+      detecting: null == detecting
+          ? _value.detecting
+          : detecting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      converting: null == converting
+          ? _value.converting
+          : converting // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -139,7 +178,10 @@ class _$_TranslateState
       {this.language = ConvertingLanguage.korean,
       this.toneAndManner = ToneAndManner.business,
       this.nativeText,
-      final List<TranslateItem> convertedText = const []})
+      final List<TranslateItem> convertedText = const [],
+      this.detectedLanguage = "",
+      this.detecting = false,
+      this.converting = false})
       : _convertedText = convertedText;
 
   @override
@@ -160,8 +202,18 @@ class _$_TranslateState
   }
 
   @override
+  @JsonKey()
+  final String detectedLanguage;
+  @override
+  @JsonKey()
+  final bool detecting;
+  @override
+  @JsonKey()
+  final bool converting;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TranslateState(language: $language, toneAndManner: $toneAndManner, nativeText: $nativeText, convertedText: $convertedText)';
+    return 'TranslateState(language: $language, toneAndManner: $toneAndManner, nativeText: $nativeText, convertedText: $convertedText, detectedLanguage: $detectedLanguage, detecting: $detecting, converting: $converting)';
   }
 
   @override
@@ -172,7 +224,10 @@ class _$_TranslateState
       ..add(DiagnosticsProperty('language', language))
       ..add(DiagnosticsProperty('toneAndManner', toneAndManner))
       ..add(DiagnosticsProperty('nativeText', nativeText))
-      ..add(DiagnosticsProperty('convertedText', convertedText));
+      ..add(DiagnosticsProperty('convertedText', convertedText))
+      ..add(DiagnosticsProperty('detectedLanguage', detectedLanguage))
+      ..add(DiagnosticsProperty('detecting', detecting))
+      ..add(DiagnosticsProperty('converting', converting));
   }
 
   @override
@@ -187,12 +242,25 @@ class _$_TranslateState
             (identical(other.nativeText, nativeText) ||
                 other.nativeText == nativeText) &&
             const DeepCollectionEquality()
-                .equals(other._convertedText, _convertedText));
+                .equals(other._convertedText, _convertedText) &&
+            (identical(other.detectedLanguage, detectedLanguage) ||
+                other.detectedLanguage == detectedLanguage) &&
+            (identical(other.detecting, detecting) ||
+                other.detecting == detecting) &&
+            (identical(other.converting, converting) ||
+                other.converting == converting));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, language, toneAndManner,
-      nativeText, const DeepCollectionEquality().hash(_convertedText));
+  int get hashCode => Object.hash(
+      runtimeType,
+      language,
+      toneAndManner,
+      nativeText,
+      const DeepCollectionEquality().hash(_convertedText),
+      detectedLanguage,
+      detecting,
+      converting);
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +274,10 @@ abstract class _TranslateState implements TranslateState {
       {final ConvertingLanguage language,
       final ToneAndManner toneAndManner,
       final String? nativeText,
-      final List<TranslateItem> convertedText}) = _$_TranslateState;
+      final List<TranslateItem> convertedText,
+      final String detectedLanguage,
+      final bool detecting,
+      final bool converting}) = _$_TranslateState;
 
   @override
   ConvertingLanguage get language;
@@ -216,6 +287,12 @@ abstract class _TranslateState implements TranslateState {
   String? get nativeText;
   @override
   List<TranslateItem> get convertedText;
+  @override
+  String get detectedLanguage;
+  @override
+  bool get detecting;
+  @override
+  bool get converting;
   @override
   @JsonKey(ignore: true)
   _$$_TranslateStateCopyWith<_$_TranslateState> get copyWith =>

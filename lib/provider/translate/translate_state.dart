@@ -14,6 +14,8 @@ class TranslateState with _$TranslateState {
     @Default(ToneAndManner.business) ToneAndManner toneAndManner,
     String? nativeText,
     @Default([]) List<TranslateItem> convertedText,
-
+    @Default("") String detectedLanguage,
+    @Default(false) bool detecting,
+    @Default(false) bool converting,
   }) = _TranslateState;
 }

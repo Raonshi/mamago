@@ -11,6 +11,9 @@ class TranslateItem with _$TranslateItem {
   @JsonSerializable(explicitToJson: true)
   const factory TranslateItem({
     String? text,
+    int? index,
+    String? logprobs,
+    @JsonKey(name: "finish_reason") String? finishReason,
   }) = _TranslateItem;
 
   factory TranslateItem.fromJson(Map<String, Object?> json) => _$TranslateItemFromJson(json);

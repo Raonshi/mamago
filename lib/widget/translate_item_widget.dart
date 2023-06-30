@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mamago/data/translated_item_model.dart';
 
 class TranslateItemWidget extends StatelessWidget {
@@ -25,18 +26,40 @@ class TranslateItemWidget extends StatelessWidget {
     return Container(
       decoration: _decoration,
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: const Column(
+      child: Column(
         children: [
-          Row(
-            children: [
-              Text("Test Test"),
-            ],
-          ),
-          Divider(),
+          // Row(
+          //   children: [
+          //     Expanded(child: Text(item.text ?? "", maxLines: null, overflow: TextOverflow.ellipsis)),
+          //   ],
+          // ),
+          Text(item.text ?? "", maxLines: null),
+          const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Icon(Icons.copy),
+              InkWell(
+                  onTap: () async {
+                    Clipboard.setData(ClipboardData(text: item.text)).then(
+                      (_) {
+                        showDialog(
+                          context: context,
+                          builder: (subConText) => AlertDialog(
+                            content: const Text("텍스트가 복사되었습니다."),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(subConText);
+                                },
+                                child: const Text("확인"),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: const Icon(Icons.copy)),
             ],
           )
         ],

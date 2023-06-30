@@ -21,6 +21,10 @@ TranslateItem _$TranslateItemFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TranslateItem {
   String? get text => throw _privateConstructorUsedError;
+  int? get index => throw _privateConstructorUsedError;
+  String? get logprobs => throw _privateConstructorUsedError;
+  @JsonKey(name: "finish_reason")
+  String? get finishReason => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +38,11 @@ abstract class $TranslateItemCopyWith<$Res> {
           TranslateItem value, $Res Function(TranslateItem) then) =
       _$TranslateItemCopyWithImpl<$Res, TranslateItem>;
   @useResult
-  $Res call({String? text});
+  $Res call(
+      {String? text,
+      int? index,
+      String? logprobs,
+      @JsonKey(name: "finish_reason") String? finishReason});
 }
 
 /// @nodoc
@@ -51,11 +59,26 @@ class _$TranslateItemCopyWithImpl<$Res, $Val extends TranslateItem>
   @override
   $Res call({
     Object? text = freezed,
+    Object? index = freezed,
+    Object? logprobs = freezed,
+    Object? finishReason = freezed,
   }) {
     return _then(_value.copyWith(
       text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      index: freezed == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
+      logprobs: freezed == logprobs
+          ? _value.logprobs
+          : logprobs // ignore: cast_nullable_to_non_nullable
+              as String?,
+      finishReason: freezed == finishReason
+          ? _value.finishReason
+          : finishReason // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -69,7 +92,11 @@ abstract class _$$_TranslateItemCopyWith<$Res>
       __$$_TranslateItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? text});
+  $Res call(
+      {String? text,
+      int? index,
+      String? logprobs,
+      @JsonKey(name: "finish_reason") String? finishReason});
 }
 
 /// @nodoc
@@ -84,11 +111,26 @@ class __$$_TranslateItemCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = freezed,
+    Object? index = freezed,
+    Object? logprobs = freezed,
+    Object? finishReason = freezed,
   }) {
     return _then(_$_TranslateItem(
       text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
+              as String?,
+      index: freezed == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
+      logprobs: freezed == logprobs
+          ? _value.logprobs
+          : logprobs // ignore: cast_nullable_to_non_nullable
+              as String?,
+      finishReason: freezed == finishReason
+          ? _value.finishReason
+          : finishReason // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -98,17 +140,28 @@ class __$$_TranslateItemCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$_TranslateItem with DiagnosticableTreeMixin implements _TranslateItem {
-  const _$_TranslateItem({this.text});
+  const _$_TranslateItem(
+      {this.text,
+      this.index,
+      this.logprobs,
+      @JsonKey(name: "finish_reason") this.finishReason});
 
   factory _$_TranslateItem.fromJson(Map<String, dynamic> json) =>
       _$$_TranslateItemFromJson(json);
 
   @override
   final String? text;
+  @override
+  final int? index;
+  @override
+  final String? logprobs;
+  @override
+  @JsonKey(name: "finish_reason")
+  final String? finishReason;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TranslateItem(text: $text)';
+    return 'TranslateItem(text: $text, index: $index, logprobs: $logprobs, finishReason: $finishReason)';
   }
 
   @override
@@ -116,7 +169,10 @@ class _$_TranslateItem with DiagnosticableTreeMixin implements _TranslateItem {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TranslateItem'))
-      ..add(DiagnosticsProperty('text', text));
+      ..add(DiagnosticsProperty('text', text))
+      ..add(DiagnosticsProperty('index', index))
+      ..add(DiagnosticsProperty('logprobs', logprobs))
+      ..add(DiagnosticsProperty('finishReason', finishReason));
   }
 
   @override
@@ -124,12 +180,18 @@ class _$_TranslateItem with DiagnosticableTreeMixin implements _TranslateItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TranslateItem &&
-            (identical(other.text, text) || other.text == text));
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.logprobs, logprobs) ||
+                other.logprobs == logprobs) &&
+            (identical(other.finishReason, finishReason) ||
+                other.finishReason == finishReason));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode =>
+      Object.hash(runtimeType, text, index, logprobs, finishReason);
 
   @JsonKey(ignore: true)
   @override
@@ -146,13 +208,25 @@ class _$_TranslateItem with DiagnosticableTreeMixin implements _TranslateItem {
 }
 
 abstract class _TranslateItem implements TranslateItem {
-  const factory _TranslateItem({final String? text}) = _$_TranslateItem;
+  const factory _TranslateItem(
+          {final String? text,
+          final int? index,
+          final String? logprobs,
+          @JsonKey(name: "finish_reason") final String? finishReason}) =
+      _$_TranslateItem;
 
   factory _TranslateItem.fromJson(Map<String, dynamic> json) =
       _$_TranslateItem.fromJson;
 
   @override
   String? get text;
+  @override
+  int? get index;
+  @override
+  String? get logprobs;
+  @override
+  @JsonKey(name: "finish_reason")
+  String? get finishReason;
   @override
   @JsonKey(ignore: true)
   _$$_TranslateItemCopyWith<_$_TranslateItem> get copyWith =>

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mamago/common/enums.dart';
 import 'package:mamago/common/tools.dart';
@@ -13,8 +15,14 @@ class TranslateStateNotifier extends StateNotifier<TranslateState> {
 
   final GptRepository _repository = GptRepository();
 
+  Timer? debounce;
+
   void setText(String value) {
-    state = state.copyWith(nativeText: value);
+    debounce = debouncer(debounce, () async {
+      state = state.copyWith(nativeText: value, detecting: true);
+      String detectedText = await _detectNativeLanguage();
+      state = state.copyWith(detectedLanguage: detectedText, detecting: false);
+    });
   }
 
   void setLanguage(ConvertingLanguage? language) {
@@ -26,10 +34,15 @@ class TranslateStateNotifier extends StateNotifier<TranslateState> {
   }
 
   Future<void> translate() async {
+    state = state.copyWith(converting: true);
     if ((state.nativeText ?? "").isEmpty) return;
-    List<TranslateItem> result = await _repository.requestTranslate(state);
-    state = state.copyWith(convertedText: result);
-    lgr.d(state);
-    await Future.delayed(const Duration(milliseconds: 300));
+    List<TranslateItem> result = await _repository.translate(state);
+    state = state.copyWith(convertedText: result, converting: false);
+  }
+
+  Future<String> _detectNativeLanguage() async {
+    String text = (state.nativeText ?? "").replaceAll(" ", "");
+    if (text.isEmpty) return "NotFound";
+    return await _repository.detectLanguage(state.nativeText!);
   }
 }
