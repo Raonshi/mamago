@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mamago/common/enums.dart';
-import 'package:mamago/common/tools.dart';
-import 'package:mamago/data/translated_item_model.dart';
 import 'package:mamago/provider/translate/translate_provider.dart';
 import 'package:mamago/provider/translate/translate_state.dart';
 import 'package:mamago/widget/translate_item_widget.dart';
@@ -41,7 +39,7 @@ class HomePage extends ConsumerWidget {
                   child: TextFormField(
                     maxLines: 15,
                     minLines: 15,
-                    maxLength: 2000,
+                    maxLength: 300,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Enter your native sentences",
