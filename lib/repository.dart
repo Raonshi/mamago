@@ -1,12 +1,11 @@
 import 'dart:convert';
+import 'package:mamago/common/secrets.dart';
 import 'package:mamago/common/tools.dart';
 import 'package:mamago/data/translated_item_model.dart';
 import 'package:mamago/provider/translate/translate_state.dart';
 import 'package:http/http.dart';
 
 class GptRepository {
-  final String key = "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";
-
   GptRepository() {
     lgr.d("GptManager has created");
   }
@@ -19,7 +18,7 @@ class GptRepository {
     Uri uri = Uri.parse("https://api.openai.com/v1/completions");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer $key",
+      "Authorization": "Bearer $gptKey",
     };
 
     Map<String, dynamic> body = {
@@ -76,7 +75,7 @@ class GptRepository {
     Uri uri = Uri.parse("https://api.openai.com/v1/completions");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer $key",
+      "Authorization": "Bearer $gptKey",
     };
 
     Map<String, dynamic> body = {

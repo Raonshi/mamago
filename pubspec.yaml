@@ -44,6 +44,9 @@ dependencies:
   dart_openai: ^1.9.91
   http: ^0.13.6
   loader_overlay: ^2.2.0
+  flutter_adaptive_scaffold: ^0.1.4
+  animate_do: ^3.0.2
+  shared_preferences: ^2.2.0
   
 
 dev_dependencies:
