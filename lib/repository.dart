@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:mamago/common/enums.dart';
 import 'package:mamago/common/secrets.dart';
 import 'package:mamago/common/tools.dart';
 import 'package:mamago/data/translated_item_model.dart';
@@ -12,72 +11,27 @@ class GptRepository {
   }
 
   Future<List<TranslateItem>> translate(TranslateState state) async {
-    Map<String, dynamic> json = {
-      "text": state.nativeText,
-      "language": state.language.text,
-      "toneAndManner": state.toneAndManner.text,
-    };
+    final String prompt1 = "${state.nativeText}를 ${state.language}로 번역해줘";
+    final String firstAnswer = await getAnswer(prompt1);
 
-    String prompt = "`${state.nativeText}`를 `${state.language}`로 번역해줘. 그리고 명심해야 할 것들이 있어.\n"
-        "1. ${state.toneAndManner.text} 상황에서 사용할 수 있는 톤 앤 매너로 번역해줘.\n"
-        "2. 최대 3가지의 각기 다른 표현으로 제공해줘. 이 때, 1번의 톤 앤 매너는 항상 유지되어야해.\n"
-        "3. json 형태로 작성해줘. 내가 원하는 json의 형태는 다음과 같아.\n"
-        "```\n"
-        "{'results' : [{'index': 1, 'text': 'aaa'}, {'index': 2, 'text': 'bbb'}, {'index': 3, 'text': 'ccc'}]}\n"
-        "```\n"
-        "results에는 2번에 해당하는 표현들이 json형태로 들어가 있어.";
+    final String prompt2 = '"$firstAnswer"를 ${state.toneAndManner.text} 어투로 다시 작성해줘.';
+    final String secondAnswer = await getAnswer(prompt2);
 
-    Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
-    Map<String, String> headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $gptKey",
-    };
+    final String prompt3 = '어투를 유지한 상태로 "$secondAnswer"를 포함한 다른 표현 3가지를 더 작성해줘.';
+    final String thirdAnswer = await getAnswer(prompt3);
 
-    Map<String, dynamic> body = {
-      "model": "gpt-3.5-turbo",
-      "messages": [
-        {
-          "role": "system",
-          "content": "You are a helpful translator.",
-        },
-        {
-          "role": "user",
-          "content": prompt,
-        }
-      ],
-    };
-    Response response = await post(uri, headers: headers, body: jsonEncode(body));
-    if (response.statusCode != 200) {
-      throw Exception("Translation request has failed");
-    }
+    final String prompt4 = '"$thirdAnswer"를 json타입으로 반환해줘.json은 순번을 나타내는"index"와 번역 결과를 나타내는 "text"를 가지고 있어.';
+    final String answer4 = await getAnswer(prompt4);
 
-    Map<String, dynamic> data = (jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
-    if (data.containsKey("choices")) {
-      List<dynamic> choices = data["choices"] as List<dynamic>;
-      if (choices.isEmpty) return [];
+    final String prompt5 = '"$answer4"를 List<Map<String, dynamic>>타입으로 변환해줘.';
+    final String answer5 = await getAnswer(prompt5);
 
-      final Map<String, dynamic> answer = jsonDecode(choices.first["message"]["content"]);
+    if (answer5.isEmpty) return [];
 
-      List<TranslateItem> translationItems =
-          (answer["results"] as List).map((e) => TranslateItem.fromJson(e as Map<String, dynamic>)).toList();
+    final List<dynamic> results = jsonDecode(answer5);
+    if (results.isEmpty) return [];
 
-      List<TranslateItem> result = [];
-      for (int i = 0; i < translationItems.length; i++) {
-        bool isDuplicated = false;
-        for (int j = 0; j < result.length; j++) {
-          if (translationItems[i].text == result[j].text) {
-            isDuplicated = true;
-            break;
-          }
-        }
-        if (!isDuplicated) {
-          result.add(translationItems[i]);
-        }
-      }
-
-      return result;
-    }
-    return [];
+    return results.map((e) => TranslateItem.fromJson(e)).toList();
   }
 
   Future<String> detectLanguage(String text) async {
@@ -114,5 +68,41 @@ class GptRepository {
       return (choices.first["text"] as String).trim();
     }
     return "NotFound";
+  }
+
+  Future<String> getAnswer(String prompt) async {
+    Uri uri = Uri.parse("https://api.openai.com/v1/chat/completions");
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $gptKey",
+    };
+
+    Map<String, dynamic> body = {
+      "model": "gpt-3.5-turbo",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are translation assistant",
+        },
+        {
+          "role": "user",
+          "content": prompt,
+        }
+      ],
+    };
+
+    Response response = await post(uri, headers: headers, body: jsonEncode(body));
+    if (response.statusCode != 200) {
+      throw Exception("Translation request has failed");
+    }
+
+    Map<String, dynamic> data = (jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>);
+    if (data.containsKey("choices")) {
+      List<dynamic> choices = data["choices"] as List<dynamic>;
+      if (choices.isEmpty) return "";
+      return choices.first["message"]["content"];
+    } else {
+      return "";
+    }
   }
 }

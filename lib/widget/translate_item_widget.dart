@@ -10,11 +10,12 @@ class TranslateItemWidget extends StatelessWidget {
   BoxDecoration get _decoration => BoxDecoration(
         border: Border.all(),
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            offset: Offset(0.0, 0.1),
+            offset: const Offset(0.0, 0.1),
             blurRadius: 3.0,
             spreadRadius: 0.5,
+            color: Colors.black.withOpacity(0.3),
           ),
         ],
       );
@@ -22,11 +23,18 @@ class TranslateItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: _decoration,
+      decoration: _decoration.copyWith(
+        color: Theme.of(context).colorScheme.primary,
+        border: Border.all(color: Theme.of(context).colorScheme.background),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         children: [
-          Text(item.text ?? "", maxLines: null),
+          Text(
+            item.text ?? "",
+            maxLines: null,
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          ),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

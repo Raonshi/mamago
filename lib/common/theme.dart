@@ -16,6 +16,7 @@ ThemeData lightTheme = ThemeData(
     surface: Colors.white,
     onSurface: Colors.black,
   ),
+  disabledColor: Colors.grey.shade300,
 );
 
 // ThemeData darkTheme = ThemeData.dark(useMaterial3: true);
@@ -34,4 +35,5 @@ ThemeData darkTheme = ThemeData(
     surface: Colors.grey.shade900,
     onSurface: Colors.white,
   ),
+  disabledColor: Colors.grey.shade300,
 );

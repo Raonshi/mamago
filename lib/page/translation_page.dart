@@ -32,6 +32,7 @@ class TranslationPage extends ConsumerWidget {
                 Container(
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
                     border: Border.all(width: 1.0, color: Colors.green),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -58,22 +59,36 @@ class TranslationPage extends ConsumerWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          DropdownButton<ConvertingLanguage>(
-                            value: translateState.language,
-                            underline: const Offstage(),
-                            items: ConvertingLanguage.values
-                                .map((e) => DropdownMenuItem(value: e, child: Text(e.text)))
-                                .toList(),
-                            onChanged: ref.read(translateProvider.notifier).setLanguage,
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24.0),
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            child: DropdownButton<ConvertingLanguage>(
+                              value: translateState.language,
+                              underline: const Offstage(),
+                              items: ConvertingLanguage.values
+                                  .map((e) => DropdownMenuItem(value: e, child: Text(e.text)))
+                                  .toList(),
+                              onChanged: ref.read(translateProvider.notifier).setLanguage,
+                            ),
                           ),
                           const SizedBox(width: 24.0),
-                          DropdownButton<ToneAndManner>(
-                            value: translateState.toneAndManner,
-                            underline: const Offstage(),
-                            items: ToneAndManner.values
-                                .map((e) => DropdownMenuItem(value: e, child: Text(e.text)))
-                                .toList(),
-                            onChanged: ref.read(translateProvider.notifier).setToneAndManner,
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24.0),
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            child: DropdownButton<ToneAndManner>(
+                              value: translateState.toneAndManner,
+                              underline: const Offstage(),
+                              items: ToneAndManner.values
+                                  .map((e) => DropdownMenuItem(value: e, child: Text(e.text)))
+                                  .toList(),
+                              onChanged: ref.read(translateProvider.notifier).setToneAndManner,
+                            ),
                           ),
                         ],
                       ),
@@ -102,11 +117,19 @@ class TranslationPage extends ConsumerWidget {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: _checkIsCovnertable(translateState) ? Colors.blue : Colors.grey,
+                            backgroundColor: _checkIsCovnertable(translateState)
+                                ? Theme.of(context).colorScheme.secondary
+                                : Theme.of(context).disabledColor,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Text("Go", style: TextStyle(fontSize: 22.0)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              "Go",
+                              style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Theme.of(context).colorScheme.onSecondary),
+                            ),
                           ),
                         ),
                       ),
