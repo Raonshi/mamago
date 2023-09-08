@@ -8,15 +8,13 @@ class TranslateItemWidget extends StatelessWidget {
   final TranslateItem item;
 
   BoxDecoration get _decoration => BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.black45),
+        border: Border.all(),
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: const [
           BoxShadow(
             offset: Offset(0.0, 0.1),
             blurRadius: 3.0,
             spreadRadius: 0.5,
-            color: Colors.black45,
           ),
         ],
       );

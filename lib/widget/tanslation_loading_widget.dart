@@ -10,7 +10,6 @@ class TranslationLoadingWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.3),
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Lottie.asset('asset/lotties/converting.json'),
