@@ -17,5 +17,6 @@ class TranslateState with _$TranslateState {
     @Default("") String detectedLanguage,
     @Default(false) bool detecting,
     @Default(false) bool converting,
+    @Default(false) bool visibleLoadingText,
   }) = _TranslateState;
 }

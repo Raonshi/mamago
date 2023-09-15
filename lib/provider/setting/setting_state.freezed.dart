@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SettingState {
   ThemeMode get themeMode => throw _privateConstructorUsedError;
-  int get navIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingStateCopyWith<SettingState> get copyWith =>
@@ -30,7 +29,7 @@ abstract class $SettingStateCopyWith<$Res> {
           SettingState value, $Res Function(SettingState) then) =
       _$SettingStateCopyWithImpl<$Res, SettingState>;
   @useResult
-  $Res call({ThemeMode themeMode, int navIndex});
+  $Res call({ThemeMode themeMode});
 }
 
 /// @nodoc
@@ -47,17 +46,12 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
   @override
   $Res call({
     Object? themeMode = null,
-    Object? navIndex = null,
   }) {
     return _then(_value.copyWith(
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
-      navIndex: null == navIndex
-          ? _value.navIndex
-          : navIndex // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -70,7 +64,7 @@ abstract class _$$_SettingStateCopyWith<$Res>
       __$$_SettingStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeMode themeMode, int navIndex});
+  $Res call({ThemeMode themeMode});
 }
 
 /// @nodoc
@@ -85,17 +79,12 @@ class __$$_SettingStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? themeMode = null,
-    Object? navIndex = null,
   }) {
     return _then(_$_SettingState(
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
-      navIndex: null == navIndex
-          ? _value.navIndex
-          : navIndex // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -103,18 +92,15 @@ class __$$_SettingStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SettingState implements _SettingState {
-  const _$_SettingState({this.themeMode = ThemeMode.system, this.navIndex = 0});
+  const _$_SettingState({this.themeMode = ThemeMode.system});
 
   @override
   @JsonKey()
   final ThemeMode themeMode;
-  @override
-  @JsonKey()
-  final int navIndex;
 
   @override
   String toString() {
-    return 'SettingState(themeMode: $themeMode, navIndex: $navIndex)';
+    return 'SettingState(themeMode: $themeMode)';
   }
 
   @override
@@ -123,13 +109,11 @@ class _$_SettingState implements _SettingState {
         (other.runtimeType == runtimeType &&
             other is _$_SettingState &&
             (identical(other.themeMode, themeMode) ||
-                other.themeMode == themeMode) &&
-            (identical(other.navIndex, navIndex) ||
-                other.navIndex == navIndex));
+                other.themeMode == themeMode));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, themeMode, navIndex);
+  int get hashCode => Object.hash(runtimeType, themeMode);
 
   @JsonKey(ignore: true)
   @override
@@ -139,13 +123,10 @@ class _$_SettingState implements _SettingState {
 }
 
 abstract class _SettingState implements SettingState {
-  const factory _SettingState({final ThemeMode themeMode, final int navIndex}) =
-      _$_SettingState;
+  const factory _SettingState({final ThemeMode themeMode}) = _$_SettingState;
 
   @override
   ThemeMode get themeMode;
-  @override
-  int get navIndex;
   @override
   @JsonKey(ignore: true)
   _$$_SettingStateCopyWith<_$_SettingState> get copyWith =>

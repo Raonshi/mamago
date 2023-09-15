@@ -34,9 +34,15 @@ class TranslateStateNotifier extends StateNotifier<TranslateState> {
   }
 
   Future<void> translate() async {
+    Timer(const Duration(milliseconds: 1800), () {
+      state = state.copyWith(visibleLoadingText: true);
+    });
     state = state.copyWith(converting: true);
     if ((state.nativeText ?? "").isEmpty) return;
-    List<TranslateItem> result = await _repository.translate(state);
+    List<TranslateItem> result = await _repository.translate(state).then((value) {
+      state = state.copyWith(visibleLoadingText: false);
+      return value;
+    });
     state = state.copyWith(convertedText: result, converting: false);
   }
 

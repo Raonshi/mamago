@@ -23,6 +23,7 @@ mixin _$TranslateState {
   String get detectedLanguage => throw _privateConstructorUsedError;
   bool get detecting => throw _privateConstructorUsedError;
   bool get converting => throw _privateConstructorUsedError;
+  bool get visibleLoadingText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TranslateStateCopyWith<TranslateState> get copyWith =>
@@ -42,7 +43,8 @@ abstract class $TranslateStateCopyWith<$Res> {
       List<TranslateItem> convertedText,
       String detectedLanguage,
       bool detecting,
-      bool converting});
+      bool converting,
+      bool visibleLoadingText});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$TranslateStateCopyWithImpl<$Res, $Val extends TranslateState>
     Object? detectedLanguage = null,
     Object? detecting = null,
     Object? converting = null,
+    Object? visibleLoadingText = null,
   }) {
     return _then(_value.copyWith(
       language: null == language
@@ -95,6 +98,10 @@ class _$TranslateStateCopyWithImpl<$Res, $Val extends TranslateState>
           ? _value.converting
           : converting // ignore: cast_nullable_to_non_nullable
               as bool,
+      visibleLoadingText: null == visibleLoadingText
+          ? _value.visibleLoadingText
+          : visibleLoadingText // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -114,7 +121,8 @@ abstract class _$$_TranslateStateCopyWith<$Res>
       List<TranslateItem> convertedText,
       String detectedLanguage,
       bool detecting,
-      bool converting});
+      bool converting,
+      bool visibleLoadingText});
 }
 
 /// @nodoc
@@ -135,6 +143,7 @@ class __$$_TranslateStateCopyWithImpl<$Res>
     Object? detectedLanguage = null,
     Object? detecting = null,
     Object? converting = null,
+    Object? visibleLoadingText = null,
   }) {
     return _then(_$_TranslateState(
       language: null == language
@@ -165,6 +174,10 @@ class __$$_TranslateStateCopyWithImpl<$Res>
           ? _value.converting
           : converting // ignore: cast_nullable_to_non_nullable
               as bool,
+      visibleLoadingText: null == visibleLoadingText
+          ? _value.visibleLoadingText
+          : visibleLoadingText // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -181,7 +194,8 @@ class _$_TranslateState
       final List<TranslateItem> convertedText = const [],
       this.detectedLanguage = "",
       this.detecting = false,
-      this.converting = false})
+      this.converting = false,
+      this.visibleLoadingText = false})
       : _convertedText = convertedText;
 
   @override
@@ -210,10 +224,13 @@ class _$_TranslateState
   @override
   @JsonKey()
   final bool converting;
+  @override
+  @JsonKey()
+  final bool visibleLoadingText;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TranslateState(language: $language, toneAndManner: $toneAndManner, nativeText: $nativeText, convertedText: $convertedText, detectedLanguage: $detectedLanguage, detecting: $detecting, converting: $converting)';
+    return 'TranslateState(language: $language, toneAndManner: $toneAndManner, nativeText: $nativeText, convertedText: $convertedText, detectedLanguage: $detectedLanguage, detecting: $detecting, converting: $converting, visibleLoadingText: $visibleLoadingText)';
   }
 
   @override
@@ -227,7 +244,8 @@ class _$_TranslateState
       ..add(DiagnosticsProperty('convertedText', convertedText))
       ..add(DiagnosticsProperty('detectedLanguage', detectedLanguage))
       ..add(DiagnosticsProperty('detecting', detecting))
-      ..add(DiagnosticsProperty('converting', converting));
+      ..add(DiagnosticsProperty('converting', converting))
+      ..add(DiagnosticsProperty('visibleLoadingText', visibleLoadingText));
   }
 
   @override
@@ -248,7 +266,9 @@ class _$_TranslateState
             (identical(other.detecting, detecting) ||
                 other.detecting == detecting) &&
             (identical(other.converting, converting) ||
-                other.converting == converting));
+                other.converting == converting) &&
+            (identical(other.visibleLoadingText, visibleLoadingText) ||
+                other.visibleLoadingText == visibleLoadingText));
   }
 
   @override
@@ -260,7 +280,8 @@ class _$_TranslateState
       const DeepCollectionEquality().hash(_convertedText),
       detectedLanguage,
       detecting,
-      converting);
+      converting,
+      visibleLoadingText);
 
   @JsonKey(ignore: true)
   @override
@@ -277,7 +298,8 @@ abstract class _TranslateState implements TranslateState {
       final List<TranslateItem> convertedText,
       final String detectedLanguage,
       final bool detecting,
-      final bool converting}) = _$_TranslateState;
+      final bool converting,
+      final bool visibleLoadingText}) = _$_TranslateState;
 
   @override
   ConvertingLanguage get language;
@@ -293,6 +315,8 @@ abstract class _TranslateState implements TranslateState {
   bool get detecting;
   @override
   bool get converting;
+  @override
+  bool get visibleLoadingText;
   @override
   @JsonKey(ignore: true)
   _$$_TranslateStateCopyWith<_$_TranslateState> get copyWith =>
