@@ -20,15 +20,18 @@ class GptRepository {
     final String prompt3 = '어투를 유지한 상태로 "$secondAnswer"를 포함한 다른 표현 3가지를 더 작성해줘.';
     final String thirdAnswer = await getAnswer(prompt3);
 
-    final String prompt4 = '"$thirdAnswer"를 json타입으로 반환해줘.json은 순번을 나타내는"index"와 번역 결과를 나타내는 "text"를 가지고 있어.';
+    final List<Map<String, dynamic>> format = [
+      {"index": 0, "text": "translatedText1"},
+      {"index": 1, "text": "translatedText2"},
+      {"index": 2, "text": "translatedText3"}
+    ];
+
+    final String prompt4 = '"$thirdAnswer"를 \n```\n$format\n```과 동일한 형태의 구조로 반환해줘.';
     final String answer4 = await getAnswer(prompt4);
 
-    final String prompt5 = '"$answer4"를 List<Map<String, dynamic>>타입으로 변환해줘.';
-    final String answer5 = await getAnswer(prompt5);
+    if (answer4.isEmpty) return [];
 
-    if (answer5.isEmpty) return [];
-
-    final List<dynamic> results = jsonDecode(answer5);
+    final List<dynamic> results = jsonDecode(answer4);
     if (results.isEmpty) return [];
 
     return results.map((e) => TranslateItem.fromJson(e)).toList();
